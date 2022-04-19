@@ -1,49 +1,37 @@
 <template>
 <div class="">
-  <div v-if="articles.length">
+  <div v-if="$root.$data.articles.length">
     <MyArticle
-      v-for="article in articles"
+      v-for="article in $root.$data.articles"
       :key="article.id"
-      :id = "article.id"
-      :author = "article.author"
-      :body = "article.body"
-      :published = "article.published"
+      :article="article"
       @change-publishing = "change_status"
     />
   </div>
-  <AddForm author="" body="" published="" @add-article="add_art"></AddForm>
+  <AddForm @add-article="add_art"></AddForm>
 </div>
 </template>
 
 <script>
 import MyArticle from "./MyArticle";
 import AddForm from "./AddForm";
+import store from "@/store"
 export default {
   components:{
     MyArticle,
     AddForm
   },
   name: "ArticleList",
-  data(){
-    return{
-      articles:[],
-    }
-  },
   methods:{
     add_art(value){
-      let new_article = {
-        id: this.articles[length].id+1,
-        ...value
-      }
-      this.articles.push(new_article);
+      store.add_art(value);
     },
     change_status(id){
-      this.articles[id-1].published = !this.articles[id-1].published;
+      store.change_art_status(id);
     }
   },
   beforeMount() {
-    fetch('/js.json').then(response => response.json()).then(articles => this.articles = articles);
-    console.log("fetched data");
+    store.fetch_arts();
   }
 
 

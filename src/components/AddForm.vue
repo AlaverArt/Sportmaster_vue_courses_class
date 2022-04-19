@@ -35,7 +35,7 @@ export default {
     return{
       article: {
         author: this.author,
-        body: this.author,
+        body: this.body,
         published: this.published
       }
     }

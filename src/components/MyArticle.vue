@@ -1,26 +1,34 @@
 <template>
 <div class="">
-  <div :class="{published: published, unpublished: !published}" class="art">
-      <span :style="{fontSize: text_size  + 'px'}">{{author}}</span>
+  <div :class="{published: article.published, unpublished: !article.published}" class="art">
+      <span :style="{fontSize: text_size  + 'px'}">{{article.author}}</span>
       <br>
       <br>
-      <span>{{body}}</span>
+      <span>{{article.body}}</span>
       <br>
       <br>
-      <CheckBox :id="id" :published="published" @change-one = "$emit('change-publishing',id)"></CheckBox>
-      <!--<label for="" >Опубликовано</label>-->
+      <CheckBox :id="article.id" :published="article.published" @change-one = "$emit('change-publishing',article.id)"></CheckBox>
+      <label>Опубликовано</label>
+      <br>
+      <router-link :to="goToArtId">Читать далее</router-link>
   </div>
 </div>
 </template>
 
 <script>
+import CheckBox from "@/components/CheckBox";
 export default {
   name: "MyArticle",
+  components:{
+    CheckBox
+  },
   props:{
-    id: Number,
-    author: String,
-    body: String,
-    published: Boolean,
+    article:{
+      id: Number,
+      author: String,
+      body: String,
+      published: Boolean
+    }
   },
   data(){
     return{
@@ -29,9 +37,13 @@ export default {
   },
   computed: {
       text_size() {
-        if (this.published == true) return 30;
+
+        if (this.article.published == true) return 30;
         else return 15;
       },
+    goToArtId(){
+        return '/articles/'+this.article.id;
+    }
   },
   watch:{
     name(){
