@@ -1,0 +1,26 @@
+[
+{
+  "id": 1,
+  "author": "Author1",
+  "body": "Body 1",
+  "published": true
+},
+{
+  "id":2,
+  "author": "Author2",
+  "body": "Body 2",
+  "published": false
+},
+{
+  "id":3,
+  "author": "Author3",
+  "body": "Body 3",
+  "published": true
+},
+{
+  "id":4,
+  "author": "Author4",
+  "body": "Body 4",
+  "published": false
+}
+]
