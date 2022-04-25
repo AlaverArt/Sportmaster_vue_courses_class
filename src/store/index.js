@@ -1,24 +1,43 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
 import apiController from "@/apiController";
 
-let store = {
-    //debug:true,
-    state:{
-        articles:[]
-    },
-    add_art(value){
-        let new_article = {
-            id: this.state.articles[this.state.articles.length-1].id + 1,
-            ...value
-        }
-        this.state.articles.push(new_article);
-    },
-    async getArticles(){
-        this.state.articles = await apiController.getArticles();
-        console.log("fetched data", this.state.articles);
-    },
-    changeArtPublished(id){
-        this.state.articles[id-1].published = !this.state.articles[id-1].published;
-    }
-};
+Vue.use(Vuex)
 
-export default store;
+export default new Vuex.Store({
+  state: {
+    articles:[]
+  },
+  getters: {
+    getArticles(){
+      return this.state.articles;
+    }
+  },
+  mutations: {
+    setArticles(state, articles){
+      state.articles = articles;
+    },
+    add_art(state, art){
+
+      let new_article = {
+        id: state.articles[state.articles.length-1].id + 1,
+        ...art
+      }
+      state.articles.push(new_article);
+    },
+    changeArtPublished(state, id){
+      state.articles[id-1].published = !state.articles[id-1].published;
+    }
+  },
+  actions: {
+    async getArticlesFromApi(context){
+
+      let articles = await apiController.getArticles();
+      context.commit('setArticles', articles)
+
+      console.log("fetched data", this.state.articles);
+    }
+  },
+  modules: {
+  }
+})

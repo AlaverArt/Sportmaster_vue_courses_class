@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import store from '../store'
 export default {
   name: "ArticleView",
   components:{
@@ -33,11 +32,8 @@ export default {
   },
   methods:{
     changePublishing(){
-      store.changeArtPublished(this.id)
+      this.$store.commit('changeArtPublished', this.id);
     }
-  },
-  mounted(){
-
   },
   computed: {
     text_size() {

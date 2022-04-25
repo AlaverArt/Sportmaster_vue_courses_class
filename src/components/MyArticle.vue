@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import store from '@/store'
 export default {
   name: "MyArticle",
   components:{
@@ -36,7 +35,7 @@ export default {
   },
   methods:{
     changePublishing(){
-      store.changeArtPublished(this.article.id)
+      this.$store.commit('changeArtPublished',this.article.id);
     }
   },
   computed: {

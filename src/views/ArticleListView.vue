@@ -1,9 +1,9 @@
 <template>
   <div class="article-list-view">
-    <div v-if="$root.$data.articles.length">
+    <div v-if="articlesLength">
       <h1>Статьи обо всём на свете</h1>
       <MyArticle
-          v-for="article in $root.$data.articles"
+          v-for="article in articles"
           :key="article.id"
           :article="article"
       />
@@ -13,17 +13,22 @@
 
 <script>
 import MyArticle from "@/components/MyArticle";
-//import store from "../store"
+import store from '@/store'
 export default {
   components:{
     MyArticle,
-
   },
   name: "ArticleListView",
   methods:{
+  },
+  computed:{
+    articlesLength(){
+      return store.state.articles.length;
+    },
+    articles(){
+      return store.state.articles;
+    }
   }
-
-
 }
 </script>
 

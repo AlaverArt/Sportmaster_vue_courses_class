@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import store from "@/store";
-
 export default {
   name: 'App',
   components: {
@@ -26,8 +24,8 @@ export default {
   methods:{
 
   },
-  created() {
-    store.getArticles();
+  beforeMount() {
+    this.$store.dispatch('getArticlesFromApi');
   }
 }
 </script>

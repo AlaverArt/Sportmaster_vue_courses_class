@@ -28,7 +28,6 @@
   </div>
 </template>
 <script>
-import store from "@/store";
 export default {
   name: "AddArtFormView",
   components: {},
@@ -47,7 +46,7 @@ export default {
       this.article.published = !this.article.published;
     },
     add_article(){
-      store.add_art(this.article);
+      this.$store.commit('add_art',this.article);
       this.$router.push('/')
     }
   }
