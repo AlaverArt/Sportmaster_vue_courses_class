@@ -1,23 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import ArticleList from "@/components/ArticleList";
-import ArticleView from "@/views/ArticleView";
 import store from '@/store'
+import ArticleView from "@/views/ArticleView";
+import ArticleListView from "@/views/ArticleListView";
+import AddArtFormView from "@/views/AddArtFormView";
+import AboutView from "@/views/AboutView";
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: ArticleList
-  },
-  {
-   path:'/articles/:art_id',
-    component: ArticleView,
-    props: (route) => store.state.articles.find((art) => art.id == route.params.art_id)
-      // props:{id:1,author:"AR1",body:"ggg",published:true}
-  }
+    {
+        path: '/',
+        component: ArticleListView
+    },
+    {
+        path:'/articles/:art_id',
+        component: ArticleView,
+        props: (route) => store.state.articles.find((art) => art.id == route.params.art_id)
+    },
+    {
+        path:'/addArtFormView',
+        component: AddArtFormView,
+    },
+    {
+        path:'/aboutView',
+        component: AboutView,
+    },
 ]
 
 const router = new VueRouter({

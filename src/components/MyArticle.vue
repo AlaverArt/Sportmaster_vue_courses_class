@@ -1,26 +1,25 @@
 <template>
 <div class="">
   <div :class="{published: article.published, unpublished: !article.published}" class="art">
-      <span :style="{fontSize: text_size  + 'px'}">{{article.author}}</span>
+      <span class="text-author" :style="{fontSize: text_size  + 'px'}">{{article.author}}</span>
       <br>
       <br>
-      <span>{{article.body}}</span>
+      <span class="text-body">{{article.body}}</span>
       <br>
       <br>
-      <CheckBox :id="article.id" :published="article.published" @change-one = "$emit('change-publishing',article.id)"></CheckBox>
-      <label>Опубликовано</label>
+      <CheckBox :published="this.article.published" @changePublished="changePublishing"></CheckBox>
+      <label class="text-published">Опубликовано</label>
       <br>
-      <router-link :to="goToArtId">Читать далее</router-link>
+      <router-link :to="artIdURL">Читать далее</router-link>
   </div>
 </div>
 </template>
 
 <script>
-import CheckBox from "@/components/CheckBox";
+import store from '@/store'
 export default {
   name: "MyArticle",
   components:{
-    CheckBox
   },
   props:{
     article:{
@@ -35,13 +34,17 @@ export default {
 
     }
   },
+  methods:{
+    changePublishing(){
+      store.changeArtPublished(this.article.id)
+    }
+  },
   computed: {
       text_size() {
-
         if (this.article.published == true) return 30;
         else return 15;
       },
-    goToArtId(){
+    artIdURL(){
         return '/articles/'+this.article.id;
     }
   },
@@ -55,14 +58,20 @@ export default {
 
 <style scoped>
 .published{
-background-color: green;
+  background-color: #D6E4F0;
 }
 .unpublished{
-background-color: red;
+  background-color: #F6F6F6;
 }
 .art{
   padding: 20px 10px;
   border-radius: 20px;
   margin: 10px 0;
+}
+.text-author, .text-body, .text-published{
+  color:black;
+}
+.text-published{
+  font-size: 1.2rem;
 }
 </style>

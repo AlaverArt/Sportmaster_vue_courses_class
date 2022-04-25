@@ -7,18 +7,18 @@
       <span>{{body}}</span>
       <br>
       <br>
-      <CheckBox :id="id" :published="published" @change-one = "$emit('change-publishing',id)"></CheckBox>
+      <CheckBox :published="published" @changePublished = "changePublishing"></CheckBox>
       <label>Опубликовано</label>
     </div>
   </div>
 </template>
 
 <script>
-import CheckBox from "@/components/CheckBox";
+import store from '../store'
 export default {
   name: "ArticleView",
   components:{
-    CheckBox
+
   },
   props:{
     id: Number,
@@ -29,6 +29,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  methods:{
+    changePublishing(){
+      store.changeArtPublished(this.id)
     }
   },
   mounted(){

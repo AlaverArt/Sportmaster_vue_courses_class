@@ -2,11 +2,16 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from "./store";
+import CheckBox from "@/components/CheckBox";
 
 Vue.config.productionTip = false
 
-new Vue({
-  data: store.state,
-  router: router,
-  render: h => h(App)
-}).$mount('#app')
+Vue.component('CheckBox', CheckBox)
+
+const app = new Vue({
+    data: store.state,
+    router: router,
+    render: h => h(App)
+})
+
+app.$mount('#app')
