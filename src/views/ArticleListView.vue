@@ -1,6 +1,7 @@
 <template>
-  <div class="">
+  <div class="article-list-view">
     <div v-if="$root.$data.articles.length">
+      <h1>Статьи обо всём на свете</h1>
       <MyArticle
           v-for="article in $root.$data.articles"
           :key="article.id"
@@ -27,5 +28,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .article-list-view h1{
+    background-color: #D6E4F0;
+  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <div class="wrapper">
       <nav>
         <ul>
@@ -46,18 +46,21 @@ export default {
   }
   nav ul{
     display: flex;
-    padding: 0 30px;
+    width: 100%;
+    padding: 0px;
     margin: 0 auto;
     align-content: center;
-    justify-content: center;
+    justify-content: space-around;
     list-style-type: none;
   }
   nav li{
+    display: flex;
+    align-items: center;
     height: 40px;
     /*display: inline;*/
     background-color: #1E56A0;
-    border-radius: 5px;
-    padding: 5px 5px;
+    /*border-radius: 5px;
+    padding: 5px 5px;*/
   }
   .wrapper{
     display: flex;
@@ -68,11 +71,16 @@ export default {
     margin: 0 auto;
   }
   .link-text{
+    font-size: 1.5rem;
+    height: 40px;
+    padding: 5px 5px;
     border-radius: 5px;
     color:white;
   }
-  .routerView-wrapper{
+  .link-text:focus{
+    background-color: #163172;
+  }
+  router-view{
     flex-grow: 1;
-    flex-shrink: 1;
   }
 </style>

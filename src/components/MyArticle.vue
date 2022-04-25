@@ -8,9 +8,9 @@
       <br>
       <br>
       <CheckBox :published="this.article.published" @changePublished="changePublishing"></CheckBox>
-      <label class="text-published">Опубликовано</label>
+      <label class="text-published"> Опубликовано</label>
       <br>
-      <router-link :to="artIdURL">Читать далее</router-link>
+      <router-link :to="artIdURL"><span class="readMore-text">Читать далее</span></router-link>
   </div>
 </div>
 </template>
@@ -73,5 +73,8 @@ export default {
 }
 .text-published{
   font-size: 1.2rem;
+}
+.readMore-text{
+  font-size: 1.3rem;
 }
 </style>

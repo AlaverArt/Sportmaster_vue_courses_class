@@ -1,14 +1,14 @@
 <template>
   <div class="">
     <div class="art">
-      <span :style="{fontSize: text_size  + 'px'}">{{author}}</span>
-      <br>
-      <br>
-      <span>{{body}}</span>
-      <br>
-      <br>
-      <CheckBox :published="published" @changePublished = "changePublishing"></CheckBox>
-      <label>Опубликовано</label>
+      <h1 :style="{fontSize: text_size  + 'px'}">{{author}}</h1>
+      <div class="art-view-body">
+        <p>{{body}}</p>
+      </div>
+      <div>
+        <CheckBox :published="published" @changePublished = "changePublishing"></CheckBox>
+        <label> Опубликовано</label>
+      </div>
     </div>
   </div>
 </template>
@@ -55,8 +55,15 @@ export default {
 
 <style scoped>
 .art{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px 10px;
   border-radius: 20px;
   margin: 10px 0;
+}
+.art{
+  background-color: #F6F6F6;
 }
 </style>
