@@ -46,7 +46,7 @@ export default {
       this.article.published = !this.article.published;
     },
     add_article(){
-      this.$store.commit('add_art',this.article);
+      this.$store.dispatch('addArticle',this.article);
       this.$router.push('/')
     }
   }

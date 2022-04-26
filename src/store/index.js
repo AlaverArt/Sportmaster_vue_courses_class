@@ -6,16 +6,27 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    articles:[]
+    articles:[],
+    networkStatus:{
+      SUCCESS: 2,
+      PROCESSING: 1,
+      ERROR: 0,
+      status: 1,
+      errorMessage: ' '
+    }
   },
   getters: {
-    getArticles(){
-      return this.state.articles;
-    }
+
   },
   mutations: {
     setArticles(state, articles){
       state.articles = articles;
+    },
+    setNetworkStatus(state, status){
+      state.networkStatus.status = status;
+    },
+    setNetworkErrorMessage(state, errorMessage){
+      state.networkStatus.errorMessage = errorMessage;
     },
     add_art(state, art){
 
@@ -30,12 +41,28 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async getArticlesFromApi(context){
+    getArticlesFromApi(context) {
+      context.commit('setNetworkStatus', context.state.networkStatus.PROCESSING);
 
-      let articles = await apiController.getArticles();
-      context.commit('setArticles', articles)
-
-      console.log("fetched data", this.state.articles);
+      apiController.getArticles()
+          .then((response) => {
+            if (response.ok)
+              return response.json();
+            else
+              //return Promise.reject(response.statusText);
+                throw new Error(response.statusText)
+          })
+          .then((fetchedArticles) => {
+            context.commit('setArticles', fetchedArticles);
+            context.commit('setNetworkStatus', context.state.networkStatus.SUCCESS);
+          })
+          .catch((errorMessage) => {
+              context.commit('setNetworkStatus', context.state.networkStatus.ERROR)
+              context.commit('setNetworkErrorMessage', errorMessage);
+          });
+    },
+    addArticle(context,  art){
+      context.commit('add_art', art);
     }
   },
   modules: {
