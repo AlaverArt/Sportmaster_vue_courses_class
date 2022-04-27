@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import Types from "@/store/types";
 export default {
   name: "MyArticle",
   components:{
@@ -35,7 +36,7 @@ export default {
   },
   methods:{
     changePublishing(){
-      this.$store.commit('articlesState/changeArtPublished',this.article.id);
+      this.$store.commit(Types.mutations.ARTICLES_STATE_CHANGE_ART_PUBLISHED,this.article.id);
     }
   },
   computed: {

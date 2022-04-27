@@ -13,11 +13,8 @@
         </div>
       </form>
       <div class="checkbox-text">
-        <label>
-          <!--<input type="checkbox" id="publ" v-model="article.published">-->
-          <CheckBox :published="article.published" @changePublished="changePublished"></CheckBox>
-          Опубликовано
-        </label>
+        <CheckBox :published="article.published" @changePublished="changePublished"></CheckBox>
+        <label> Опубликовано</label>
       </div>
       <div class="">
         <label for="subbtn">
@@ -28,6 +25,7 @@
   </div>
 </template>
 <script>
+import Types from "@/store/types";
 export default {
   name: "AddArtFormView",
   components: {},
@@ -46,7 +44,7 @@ export default {
       this.article.published = !this.article.published;
     },
     add_article(){
-      this.$store.dispatch('articlesState/addArticle',this.article);
+      this.$store.dispatch(Types.actions.ARTICLES_STATE_ADD_ARTICLE,this.article);
       this.$router.push('/')
     }
   }
@@ -61,12 +59,12 @@ input{
 .wrapper{
   display: flex;
   flex-grow: 1;
+  align-self: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1000px;
-  padding: 0 10px;
-  margin: 0 auto;
+  width: 100%;
+  /*margin: 0 auto;*/
   background-color: #F6F6F6;
 }
 .addForm{

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import Types from "@/store/types";
 export default {
   name: "ArticleView",
   components:{
@@ -32,7 +33,7 @@ export default {
   },
   methods:{
     changePublishing(){
-      this.$store.commit('articlesState/changeArtPublished', this.id);
+      this.$store.commit(Types.mutations.ARTICLES_STATE_CHANGE_ART_PUBLISHED, this.id);
     }
   },
   computed: {

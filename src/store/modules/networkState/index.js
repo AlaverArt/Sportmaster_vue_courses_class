@@ -1,21 +1,18 @@
 const networkState = {
     namespaced:true,
     state:() => ({
-        SUCCESS: 2,
-        PROCESSING: 1,
-        ERROR: 0,
-        status: 1,
-        errorMessage: ' '
+        status: 'REQUESTED',
+        message: ' '
     }),
     getters:{
 
     },
     mutations:{
-        setStatus(state, status){
+        SET_STATUS(state, status){
             state.status = status;
         },
-        setErrorMessage(state, errorMessage){
-            state.errorMessage = errorMessage;
+        SET_MESSAGE(state, message){
+            state.message = message;
         }
     }
 }

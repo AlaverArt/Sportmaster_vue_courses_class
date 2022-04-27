@@ -4,10 +4,10 @@ const articlesState = {
         articles:[]
     }),
     mutations:{
-        setArticles(state, articles){
+        SET_ARTICLES(state, articles){
             state.articles = articles;
         },
-        add_art(state, art){
+        ADD_ART(state, art){
 
             let new_article = {
                 id: state.articles[state.articles.length-1].id + 1,
@@ -15,13 +15,13 @@ const articlesState = {
             }
             state.articles.push(new_article);
         },
-        changeArtPublished(state, id){
+        CHANGE_ART_PUBLISHED(state, id){
             state.articles[id-1].published = !state.articles[id-1].published;
         }
     },
     actions:{
-        addArticle(context,  art){
-            context.commit('add_art', art);
+        ADD_ARTICLE(context,  art){
+            context.commit('ADD_ART', art);
         }
     }
 }

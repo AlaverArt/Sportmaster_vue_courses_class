@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Types from "@/store/types";
 import networkStateModule from "@/store/modules/networkState";
 import articlesStateModule from "@/store/modules/articlesState";
 import articlesService from "@/services/articlesService";
@@ -12,18 +13,24 @@ export default new Vuex.Store({
     articlesState: articlesStateModule
   },
   actions: {
-    getArticlesFromApi(context) {
-      context.commit('networkState/setStatus', context.state.networkState.PROCESSING);
+    GET_ARTICLES_FROM_API(context) {
+      context.commit(Types.mutations.NETWORK_STATE_SET_STATUS, Types.request_status.REQUESTED);
 
-     articlesService.getArticles()
+      articlesService.getArticles()
           .then((fetchedArticles) => {
-            context.commit('articlesState/setArticles', fetchedArticles);
-            context.commit('networkState/setStatus', context.state.networkState.SUCCESS);
+            context.commit(Types.mutations.ARTICLES_STATE_SET_ARTICLES, fetchedArticles);
+            context.commit(Types.mutations.NETWORK_STATE_SET_STATUS, Types.request_status.SUCCEEDED);
           })
-          .catch((errorMessage) => {
-              context.commit('networkState/setStatus', context.state.networkState.ERROR)
-              context.commit('networkState/setErrorMessage', errorMessage);
+          .catch((error) => {
+              context.commit(Types.mutations.NETWORK_STATE_SET_STATUS, Types.request_status.FAILED)
+              context.commit(Types.mutations.NETWORK_STATE_SET_MESSAGE, error.message);
           });
+    },
+    CANCEL_GET_ARTICLES_FROM_API(){
+        //context.commit(Types.mutations.NETWORK_STATE_SET_STATUS, Types.request_status.FAILED);
+        //context.commit(Types.mutations.NETWORK_STATE_SET_MESSAGE, 'Загрузка статей отменена');
+
+        articlesService.cancelGetArticles();
     }
   }
 })

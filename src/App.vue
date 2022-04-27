@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import Types from '@/store/types';
 export default {
   name: 'App',
   components: {
@@ -25,7 +26,7 @@ export default {
 
   },
   beforeMount() {
-    this.$store.dispatch('getArticlesFromApi');
+    this.$store.dispatch(Types.actions.GET_ARTICLES_FROM_API);
   }
 }
 </script>
@@ -45,7 +46,7 @@ export default {
   nav ul{
     display: flex;
     width: 100%;
-    padding: 0px;
+    padding: 0;
     margin: 0 auto;
     align-content: center;
     justify-content: space-around;
