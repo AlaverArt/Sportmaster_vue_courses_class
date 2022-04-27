@@ -1,70 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import apiController from "@/apiController";
+import networkStateModule from "@/store/modules/networkState";
+import articlesStateModule from "@/store/modules/articlesState";
+import articlesService from "@/services/articlesService";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    articles:[],
-    networkStatus:{
-      SUCCESS: 2,
-      PROCESSING: 1,
-      ERROR: 0,
-      status: 1,
-      errorMessage: ' '
-    }
-  },
-  getters: {
-
-  },
-  mutations: {
-    setArticles(state, articles){
-      state.articles = articles;
-    },
-    setNetworkStatus(state, status){
-      state.networkStatus.status = status;
-    },
-    setNetworkErrorMessage(state, errorMessage){
-      state.networkStatus.errorMessage = errorMessage;
-    },
-    add_art(state, art){
-
-      let new_article = {
-        id: state.articles[state.articles.length-1].id + 1,
-        ...art
-      }
-      state.articles.push(new_article);
-    },
-    changeArtPublished(state, id){
-      state.articles[id-1].published = !state.articles[id-1].published;
-    }
+  modules:{
+    networkState: networkStateModule,
+    articlesState: articlesStateModule
   },
   actions: {
     getArticlesFromApi(context) {
-      context.commit('setNetworkStatus', context.state.networkStatus.PROCESSING);
+      context.commit('networkState/setStatus', context.state.networkState.PROCESSING);
 
-      apiController.getArticles()
-          .then((response) => {
-            if (response.ok)
-              return response.json();
-            else
-              //return Promise.reject(response.statusText);
-                throw new Error(response.statusText)
-          })
+     articlesService.getArticles()
           .then((fetchedArticles) => {
-            context.commit('setArticles', fetchedArticles);
-            context.commit('setNetworkStatus', context.state.networkStatus.SUCCESS);
+            context.commit('articlesState/setArticles', fetchedArticles);
+            context.commit('networkState/setStatus', context.state.networkState.SUCCESS);
           })
           .catch((errorMessage) => {
-              context.commit('setNetworkStatus', context.state.networkStatus.ERROR)
-              context.commit('setNetworkErrorMessage', errorMessage);
+              context.commit('networkState/setStatus', context.state.networkState.ERROR)
+              context.commit('networkState/setErrorMessage', errorMessage);
           });
-    },
-    addArticle(context,  art){
-      context.commit('add_art', art);
     }
-  },
-  modules: {
   }
 })

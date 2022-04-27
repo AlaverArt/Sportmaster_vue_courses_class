@@ -46,7 +46,7 @@ export default {
       this.article.published = !this.article.published;
     },
     add_article(){
-      this.$store.dispatch('addArticle',this.article);
+      this.$store.dispatch('articlesState/addArticle',this.article);
       this.$router.push('/')
     }
   }

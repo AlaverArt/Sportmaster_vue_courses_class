@@ -32,7 +32,7 @@ export default {
   },
   methods:{
     changePublishing(){
-      this.$store.commit('changeArtPublished', this.id);
+      this.$store.commit('articlesState/changeArtPublished', this.id);
     }
   },
   computed: {

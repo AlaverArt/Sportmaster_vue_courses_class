@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     changePublishing(){
-      this.$store.commit('changeArtPublished',this.article.id);
+      this.$store.commit('articlesState/changeArtPublished',this.article.id);
     }
   },
   computed: {

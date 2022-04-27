@@ -16,7 +16,7 @@ const routes = [
     {
         path:'/articles/:art_id',
         component: ArticleView,
-        props: (route) => store.state.articles.find((art) => art.id == route.params.art_id)
+        props: (route) => store.state.articlesState.articles.find((art) => art.id == route.params.art_id)
     },
     {
         path:'/addArtFormView',

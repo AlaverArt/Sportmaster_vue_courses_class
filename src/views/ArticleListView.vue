@@ -1,6 +1,6 @@
 <template>
   <div class="article-list-view">
-    <div v-if="networkStatus.status == networkStatus.SUCCESS">
+    <div v-if="networkState.status == networkState.SUCCESS">
       <div v-if="articlesLength">
         <h1 class="article-list-view__title">Статьи обо всём на свете</h1>
         <MyArticle
@@ -10,10 +10,10 @@
         />
       </div>
     </div>
-    <div v-else-if="networkStatus.status == networkStatus.PROCESSING" class="processing">
-      <h1>Загрузка статей...</h1>
+    <div v-else-if="networkState.status == networkState.PROCESSING" class="processing">
+      <h1 class="loading">Загрузка статей...</h1>
     </div>
-    <div v-else-if="networkStatus.status == networkStatus.ERROR" class="error">
+    <div v-else-if="networkState.status == networkState.ERROR" class="error">
         <h1>Извините, не удалось загрузить статьи</h1>
         <button @click="getArticles">Попробовать снова</button>
     </div>
@@ -22,7 +22,7 @@
 
 <script>
 import MyArticle from "@/components/MyArticle";
-import store from '@/store'
+import store from "@/store";
 export default {
   components:{
     MyArticle,
@@ -35,13 +35,13 @@ export default {
   },
   computed:{
     articlesLength(){
-      return store.state.articles.length;
+      return store.state.articlesState.articles.length;
     },
     articles(){
-      return store.state.articles;
+      return store.state.articlesState.articles;
     },
-    networkStatus(){
-      return store.state.networkStatus
+    networkState(){
+      return store.state.networkState;
     },
   }
 }
@@ -63,4 +63,19 @@ export default {
     justify-content: center;
     align-items: center;
   }
+  /*---------Анимация загрузки--------*/
+  .loading {
+    font-weight: bold;
+    display:inline-block;
+    font-family: monospace;
+    font-size: 30px;
+    clip-path: inset(0 3ch 0 0);
+    animation: l 1.5s steps(4) infinite;
+  }
+  @keyframes l {
+    to {
+      clip-path: inset(0 -1ch 0 0)
+    }
+  }
+  /*---------Анимация загрузки--------*/
 </style>
