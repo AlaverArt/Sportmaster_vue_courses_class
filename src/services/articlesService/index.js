@@ -3,7 +3,8 @@ import axios from "axios";
 
 class articlesService{
     getArticles(){
-        /* //download articles using fetch
+        /*----------loading articles using fetch ----------------------*/
+        /*
         return apiController.getArticles()
             .then((response) => {
                 if (response.ok)
@@ -13,6 +14,7 @@ class articlesService{
                     throw new Error(response.statusText)
             })
          */
+        /*----------loading articles using fetch ----------------------*/
 
         return apiController.getArticles()
             .then((response) => {
@@ -26,7 +28,12 @@ class articlesService{
                 if(axios.isCancel(error))
                     throw new Error('Загрузка статей отменена');
                 else
-                    throw new Error(error.message);
+                {
+                    if(error.message === 'Network Error')
+                        throw new Error('Не удаётся установить соединение с сервером');
+                    else
+                        throw new Error(error.message);
+                }
             });
     }
     cancelGetArticles(){
