@@ -1,7 +1,7 @@
 <template>
   <div class="addForm">
     <h1>Хотите нам помочь? Добавьте статью!</h1>
-    <div class="wrapper">
+    <!--<div class="wrapper">
       <form>
         <div class="">
           <label for="author_name">
@@ -21,7 +21,35 @@
           <input type="submit" id="subbtn" @click.prevent = "add_article">
         </label>
       </div>
-    </div>
+    </div>-->
+
+    <form>
+      <v-text-field
+          v-model="article.author"
+          label="Author"
+          required
+      ></v-text-field>
+      <v-text-field
+          v-model="article.body"
+          label="Body"
+          required
+      ></v-text-field>
+      <v-checkbox
+          v-model="article.published"
+          label="Published"
+          required
+      ></v-checkbox>
+
+      <v-btn
+          class="mr-4"
+          @click.prevent = "add_article"
+      >
+        submit
+      </v-btn>
+      <v-btn @click="clear">
+        clear
+      </v-btn>
+    </form>
   </div>
 </template>
 <script>
@@ -34,7 +62,8 @@ export default {
       article: {
         author: '',
         body: '',
-        published: false
+        published: false,
+        image:"/img/image1.jpg"
       }
     }
   },
@@ -46,6 +75,11 @@ export default {
     add_article(){
       this.$store.dispatch(Types.actions.ARTICLES_STATE_ADD_ARTICLE,this.article);
       this.$router.push('/')
+    },
+    clear(){
+      this.article.author=''
+      this.article.body=''
+      this.article.published=false
     }
   }
 

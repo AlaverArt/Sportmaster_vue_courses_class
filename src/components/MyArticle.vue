@@ -1,6 +1,6 @@
 <template>
 <div class="">
-  <div :class="{published: article.published, unpublished: !article.published}" class="art">
+  <!--<div :class="{published: article.published, unpublished: !article.published}" class="art">
       <span class="text-author" :style="{fontSize: text_size  + 'px'}">{{article.author}}</span>
       <br>
       <br>
@@ -11,7 +11,45 @@
       <label class="text-published"> Опубликовано</label>
       <br>
       <router-link :to="artIdURL"><span class="readMore-text">Читать далее</span></router-link>
-  </div>
+  </div>-->
+  <v-card
+      class="mx-auto my-2"
+      max-width="80%"
+      outlined
+  >
+    <v-list-item
+        three-line
+        :class="{published: article.published, unpublished: !article.published}"
+    >
+      <v-list-item-content>
+        <div class="text-overline mb-4">
+          ArticlesDaily
+        </div>
+        <v-list-item-title class="text-h5 mb-1">
+          {{ article.author }}
+        </v-list-item-title>
+        <v-list-item-subtitle>{{article.body}}</v-list-item-subtitle>
+      </v-list-item-content>
+
+      <v-list-item-avatar
+          tile
+          size="80"
+      >
+        <img :src="article.image">
+      </v-list-item-avatar>
+    </v-list-item>
+
+    <v-card-actions>
+      <v-btn
+          outlined
+          rounded
+          text
+          v-bind:to="artIdURL"
+      >
+        Читать далее
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </div>
 </template>
 
@@ -26,7 +64,8 @@ export default {
       id: Number,
       author: String,
       body: String,
-      published: Boolean
+      published: Boolean,
+      image:String
     }
   },
   data(){
@@ -49,9 +88,7 @@ export default {
     }
   },
   watch:{
-    name(){
 
-    }
   }
 }
 </script>

@@ -1,85 +1,87 @@
 <template>
-  <div class="app">
-    <div class="wrapper">
-      <nav>
-        <ul>
-          <li><router-link class="link-text" to="/">Статьи</router-link></li>
-          <li><router-link class="link-text" to="/AddArtFormView">Добавить статью</router-link></li>
-          <li><router-link class="link-text" to="/aboutView">О нас</router-link></li>
-        </ul>
-      </nav>
-      <div class="routerView-wrapper">
-        <router-view></router-view>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <span class="header__title">ArticlesDaily</span>
       </div>
-    </div>
-  </div>
+
+      <v-spacer></v-spacer>
+
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-navigation-drawer
+          class="menu"
+          v-model="drawer"
+          app
+          absolute
+          temporary
+      >
+        <v-list
+            nav
+            dense
+        >
+          <v-list-item-group
+              v-model="group"
+              active-class="deep-purple--text text--accent-4"
+          >
+            <v-list-item to="/">
+              <span class="menu__link">Home</span>
+            </v-list-item>
+
+            <v-list-item to="/addArtFormView">
+              <span class="menu__link">Add article</span>
+            </v-list-item>
+
+            <v-list-item to="/aboutView">
+              <span class="menu__link">About</span>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+
+    </v-app-bar>
+
+    <v-main>
+      <router-view/>
+    </v-main>
+
+    <v-footer padless>
+      <v-col
+          class="text-center"
+          cols="12"
+      >
+        Alaverdyan Artem — <strong>2022</strong>
+      </v-col>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import Types from '@/store/types';
+import Types from "@/store/types";
 export default {
   name: 'App',
-  components: {
 
-  },
-  methods:{
-
-  },
+  data: () => ({
+    drawer:false
+  }),
   beforeMount() {
     this.$store.dispatch(Types.actions.GET_ARTICLES_FROM_API);
   }
-}
+};
 </script>
 
 <style scoped>
-  .app{
-    height: 100%;
-  }
-  nav{
-    display: flex;
-    align-items: center;
-    height: 80px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    /*background-color: #1E56A0;*/
-  }
-  nav ul{
-    display: flex;
-    width: 100%;
-    padding: 0;
-    margin: 0 auto;
-    align-content: center;
-    justify-content: space-around;
-    list-style-type: none;
-  }
-  nav li{
-    display: flex;
-    align-items: center;
-    height: 40px;
-    /*display: inline;*/
-    background-color: #1E56A0;
-    /*border-radius: 5px;
-    padding: 5px 5px;*/
-  }
-  .wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 1000px;
-    padding: 0 10px;
-    margin: 0 auto;
-  }
-  .link-text{
-    font-size: 1.5rem;
-    height: 40px;
-    padding: 5px 5px;
-    border-radius: 5px;
-    color:white;
-  }
-  .link-text:focus{
-    background-color: #163172;
-  }
-  router-view{
-    flex-grow: 1;
-  }
+.header__title{
+  font-size: 2rem;
+}
+.menu{
+  padding-top: 2rem;
+}
+.menu__link{
+  font-size: 2rem;
+}
 </style>

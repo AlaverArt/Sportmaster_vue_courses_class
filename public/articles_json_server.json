@@ -4,25 +4,29 @@
       "id": 1,
       "author": "Author1",
       "body": "Body 1",
-      "published": true
+      "published": true,
+      "image": "/img/image1.jpg"
     },
     {
       "id":2,
       "author": "Author2",
       "body": "Body 2",
-      "published": false
+      "published": false,
+      "image": "/img/image1.jpg"
     },
     {
       "id":3,
       "author": "Author3",
       "body": "Body 3",
-      "published": true
+      "published": true,
+      "image": "/img/image1.jpg"
     },
     {
       "id":4,
       "author": "Author4",
       "body": "Body 4",
-      "published": false
+      "published": false,
+      "image": "/img/image1.jpg"
     }
   ]
 }
